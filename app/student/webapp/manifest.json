@@ -1,0 +1,205 @@
+{
+  "_version": "1.83.0",
+  "sap.app": {
+    "id": "webapp.student",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.21.0",
+      "toolsId": "de158e8b-79b1-4357-aed8-ecc4e8b8dfd7"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/StudentService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.146.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "webapp.student.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "StudentsList",
+          "target": [
+            "StudentsList"
+          ]
+        },
+        {
+          "pattern": "Students({key}):?query:",
+          "name": "StudentsObjectPage",
+          "target": [
+            "StudentsList",
+            "StudentsObjectPage"
+          ]
+        },
+        {
+          "name": "Students_addressesObjectPage",
+          "pattern": "Students({key})/addresses({addressesKey}):?query:",
+          "target": [
+            "StudentsList",
+            "StudentsObjectPage",
+            "Students_addressesObjectPage"
+          ]
+        },
+        {
+          "name": "Students_addressesObjectPage",
+          "pattern": "Students({key})/addresses({addressesKey}):?query:",
+          "target": [
+            "StudentsList",
+            "StudentsObjectPage",
+            "Students_addressesObjectPage"
+          ]
+        }
+      ],
+      "targets": {
+        "StudentsList": {
+          "type": "Component",
+          "id": "StudentsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Students",
+              "variantManagement": "Page",
+              "navigation": {
+                "Students": {
+                  "detail": {
+                    "route": "StudentsObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "StudentsObjectPage": {
+          "type": "Component",
+          "id": "StudentsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Students",
+              "navigation": {
+                "addresses": {
+                  "detail": {
+                    "route": "Students_addressesObjectPage"
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/Students({key})"
+        },
+        "Students_addressesObjectPage": {
+          "type": "Component",
+          "id": "Students_addressesObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "controlAggregation": "endColumnPages",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/Students/addresses"
+            }
+          }
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
