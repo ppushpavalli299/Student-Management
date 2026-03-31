@@ -10,5 +10,7 @@
   "sapux": [
     "app/student"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
 }

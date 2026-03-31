@@ -1,13 +1,5 @@
 using StudentService as service from '../../srv/student-service';
-
-
-/* =========================
-   STUDENT
-========================= */
-
 annotate service.Students with @(
-
-    /* -------- General Field Group -------- */
     UI.FieldGroup #GeneralGroup : {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -19,8 +11,6 @@ annotate service.Students with @(
             { $Type: 'UI.DataField', Label: 'Email', Value: email }
         ]
     },
-
-    /* -------- Student Details Field Group (FIXED HERE) -------- */
     UI.FieldGroup #DetailsGroup : {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -30,8 +20,6 @@ annotate service.Students with @(
             { $Type: 'UI.DataField', Label: 'Notes', Value: details.notes }
         ]
     },
-
-    /* -------- Object Page Facets -------- */
     UI.Facets : [
 
         {
@@ -56,23 +44,24 @@ annotate service.Students with @(
         }
 
     ],
-
-    /* -------- List Report -------- */
     UI.LineItem : [
         { $Type: 'UI.DataField', Label: 'FirstName', Value: firstName },
         { $Type: 'UI.DataField', Label: 'LastName', Value: lastName },
         { $Type: 'UI.DataField', Label: 'FullName', Value: fullName },
         { $Type: 'UI.DataField', Label: 'Gender', Value: gender },
-        { $Type: 'UI.DataField', Label: 'DOB', Value: dateOfBirth }
-    ]
+        { $Type: 'UI.DataField', Label: 'DOB', Value: dateOfBirth },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'StudentService.EntityContainer/uploadExcel',
+            Label : 'uploadExcel',
+        },
+    ],
+    UI.SelectionFields : [
+        fullName,
+        gender,
+    ],
 
 );
-
-
-/* =========================
-   STUDENT ADDRESS
-========================= */
-
 annotate service.StudentAddress with @(
 
     UI.FieldGroup #AddressGroup : {
@@ -97,12 +86,6 @@ annotate service.StudentAddress with @(
     ]
 
 );
-
-
-/* =========================
-   STUDENT DETAILS (OPTIONAL - NO NAVIGATION)
-========================= */
-
 annotate service.StudentDetails with @(
 
     UI.LineItem : [
@@ -113,3 +96,11 @@ annotate service.StudentDetails with @(
     ]
 
 );
+annotate service.Students with {
+    fullName @Common.Label : 'fullName'
+};
+
+annotate service.Students with {
+    gender @Common.Label : 'gender'
+};
+

@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+
+    <Toolbar id="_IDGenToolbar">
+        <ToolbarSpacer id="_IDGenToolbarSpacer"/>
+        <Button id="_IDGenButton6" 
+            text="Upload Excel"
+            type="Emphasized"
+            press="onUploadExcel"/>
+    </Toolbar>
+
+</core:FragmentDefinition>
