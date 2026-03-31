@@ -26,8 +26,9 @@ public class StudentServiceHandler implements EventHandler {
     public void uploadExcel(EventContext context) {
 
         String base64File = (String) context.get("file");
-        String fileName   = (String) context.get("fileName");
+        String fileName = (String) context.get("fileName");
 
+        // ✅ Validations
         if (base64File == null || base64File.isEmpty()) {
             throw new RuntimeException("File content is missing");
         }
@@ -36,7 +37,7 @@ public class StudentServiceHandler implements EventHandler {
             throw new RuntimeException("File name is missing");
         }
 
-        // Clean base64
+        // ✅ Clean base64
         base64File = base64File
                 .replaceAll("\\s", "")
                 .replaceAll("[^A-Za-z0-9+/=]", "");
@@ -49,18 +50,21 @@ public class StudentServiceHandler implements EventHandler {
             throw new RuntimeException("Invalid base64 content: " + e.getMessage());
         }
 
+        // ✅ Prepare DB entry
         Map<String, Object> entry = new HashMap<>();
         entry.put("ID", UUID.randomUUID());
         entry.put("fileName", fileName);
         entry.put("content", fileBytes);
         entry.put("mimeType", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
+        // ✅ Insert into DB
         db.run(Insert.into("ec.masters.ExcelFiles").entry(entry));
 
-        // Attach response message
-        context.put("message", "Upload successful for: " + fileName);
+        Map<String, Object> result = new HashMap<>();
+        result.put("message", "Upload successful for: " + fileName);
 
-        // Complete the action
+        // ✅ Correct way in your CAP version
+        context.put("result", result);
         context.setCompleted();
     }
 }
