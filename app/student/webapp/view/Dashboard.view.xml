@@ -1,0 +1,22 @@
+<mvc:View
+    controllerName="webapp.student.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page id="pageDashboard" title="Dashboard">
+        <content>
+            <VBox id="_IDGenVBox1" class="sapUiSmallMargin">
+                <Title id="_IDGenTitle" text="Overview" class="sapUiSmallMarginBottom"/>
+                <GenericTile id="_IDGenGenericTile" header="Total Students" subheader="All registered students" press="onStudentsTilePress">
+                    <tileContent>
+                        <TileContent id="_IDGenTileContent">
+                            <content>
+                                <NumericContent id="_IDGenNumericContent" value="0" icon="sap-icon://group" valueColor="Good"/>
+                            </content>
+                        </TileContent>
+                    </tileContent>
+                </GenericTile>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

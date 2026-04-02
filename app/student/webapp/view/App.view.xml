@@ -1,0 +1,10 @@
+<mvc:View
+    controllerName="webapp.student.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+
+    <App id="appContent"/>
+
+
+</mvc:View>

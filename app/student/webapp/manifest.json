@@ -9,18 +9,11 @@
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:lrop",
-      "version": "1.21.0",
-      "toolsId": "de158e8b-79b1-4357-aed8-ecc4e8b8dfd7"
-    },
     "dataSources": {
       "mainService": {
         "uri": "/odata/v4/StudentService/",
         "type": "OData",
         "settings": {
-          "annotations": [],
           "odataVersion": "4.01"
         }
       }
@@ -32,20 +25,7 @@
       "desktop": true,
       "tablet": true,
       "phone": true
-    },
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
     }
-  },
-  "deviceTypes": {
-    "desktop": true,
-    "tablet": true,
-    "phone": true
   },
   "sap.ui5": {
     "flexEnabled": true,
@@ -54,8 +34,7 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {},
-        "sap.f": {}
+        "sap.fe.templates": {}
       }
     },
     "contentDensities": {
@@ -63,77 +42,57 @@
       "cozy": true
     },
     "models": {
+      "": {
+        "dataSource": "mainService",
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true
+        }
+      },
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "webapp.student.i18n.i18n"
         }
-      },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
-        }
-      },
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
       }
-    },
-    "resources": {
-      "css": []
     },
     "routing": {
       "config": {
-        "flexibleColumnLayout": {
-          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
-          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
-        },
-        "routerClass": "sap.f.routing.Router"
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "webapp.student.view",
+        "controlId": "appContent",
+        "controlAggregation": "pages",
+        "async": true
       },
       "routes": [
         {
-          "pattern": ":?query:",
+          "pattern": "",
+          "name": "Dashboard",
+          "target": "Dashboard"
+        },
+        {
+          "pattern": "students",
           "name": "StudentsList",
-          "target": [
-            "StudentsList"
-          ]
+          "target": "StudentsList"
         },
         {
-          "pattern": "Students({key}):?query:",
+          "pattern": "Students({key})",
           "name": "StudentsObjectPage",
-          "target": [
-            "StudentsList",
-            "StudentsObjectPage"
-          ]
-        },
-        {
-          "name": "Students_addressesObjectPage",
-          "pattern": "Students({key})/addresses({addressesKey}):?query:",
-          "target": [
-            "StudentsList",
-            "StudentsObjectPage",
-            "Students_addressesObjectPage"
-          ]
-        },
-        {
-          "name": "Students_addressesObjectPage",
-          "pattern": "Students({key})/addresses({addressesKey}):?query:",
-          "target": [
-            "StudentsList",
-            "StudentsObjectPage",
-            "Students_addressesObjectPage"
-          ]
+          "target": "StudentsObjectPage"
         }
       ],
       "targets": {
+        "Dashboard": {
+          "type": "View",
+          "id": "Dashboard",
+          "name": "webapp.student.view.Dashboard"
+        },
         "StudentsList": {
           "type": "Component",
           "id": "StudentsList",
           "name": "sap.fe.templates.ListReport",
+          "controlAggregation": "pages",
           "options": {
             "settings": {
               "contextPath": "/Students",
@@ -153,50 +112,26 @@
                 }
               }
             }
-          },
-          "controlAggregation": "beginColumnPages",
-          "contextPattern": ""
+          }
         },
         "StudentsObjectPage": {
           "type": "Component",
+          "id": "StudentsObjectPage",
           "name": "sap.fe.templates.ObjectPage",
+          "controlAggregation": "pages",
           "options": {
             "settings": {
-              "editableHeaderContent": false,
-              "contextPath": "/Students",
-              "navigation": {
-                "addresses": {
-                  "detail": {
-                    "route": "Students_addressesObjectPage"
-                  }
-                }
-              }
+              "contextPath": "/Students"
             }
-          },
-          "controlAggregation": "midColumnPages",
-          "contextPattern": "/Students({key})",
-          "id": "StudentsObjectPage"
-        },
-        "Students_addressesObjectPage": {
-          "type": "Component",
-          "id": "Students_addressesObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "controlAggregation": "endColumnPages",
-          "options": {
-            "settings": {
-              "navigation": {},
-              "contextPath": "/Students/addresses"
-            }
-          },
-          "contextPattern": "/Students({key})/addresses({addressesKey})"
+          }
         }
       }
     },
     "extends": {
       "extensions": {
         "sap.ui.controllerExtensions": {
-          "sap.suite.ui.generic.template.ListReport.view.ListReport": {
-            "controllerName": "student.webapp.ext.UploadExcel"
+          "sap.fe.templates.ListReport": {
+            "controllerName": "webapp.student.ext.UploadExcel"
           }
         }
       }
@@ -209,12 +144,6 @@
           "type": "XML"
         }
       }
-    },
-    "rootView": {
-      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
-      "type": "XML",
-      "async": true,
-      "id": "appRootView"
     }
   }
 }
