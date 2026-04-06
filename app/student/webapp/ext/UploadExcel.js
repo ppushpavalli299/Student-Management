@@ -50,15 +50,10 @@ sap.ui.define([
             const reader = new FileReader();
 
             reader.onload = function (e) {
-                const arrayBuffer = e.target.result;
-                const uint8Array = new Uint8Array(arrayBuffer);
+                let base64String = e.target.result;
 
-                let binaryString = "";
-                for (let i = 0; i < uint8Array.length; i++) {
-                    binaryString += String.fromCharCode(uint8Array[i]);
-                }
-
-                const base64String = btoa(binaryString);
+                // ✅ FIX: remove metadata prefix
+                base64String = base64String.split(",")[1];
 
                 console.log("Base64 length:", base64String.length);
 
@@ -84,8 +79,8 @@ sap.ui.define([
 
             }.bind(this);
 
-            reader.readAsArrayBuffer(oFile);
+            // ✅ IMPORTANT CHANGE HERE
+            reader.readAsDataURL(oFile);
         }
-
     });
 });
