@@ -1,0 +1,12 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="webapp.student.ext.view.TotalCourses">
+
+    <Page id="_IDGenPage" title="Total Courses">
+        <content>
+            <Text id="_IDGenText" text="Total Courses Page"/>
+        </content>
+    </Page>
+
+</mvc:View>

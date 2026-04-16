@@ -27,7 +27,7 @@
       "phone": true
     }
   },
-  "sap.ui5": {
+"sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.146.0",
@@ -80,15 +80,20 @@
           "pattern": "Students({key})",
           "name": "StudentsObjectPage",
           "target": "StudentsObjectPage"
+        },
+        {
+          "pattern": "totalCourses",
+          "name": "StudentsTotalCoursesPage",
+          "target": "StudentsTotalCoursesPage"
         }
       ],
       "targets": {
         "Dashboard": {
           "type": "View",
           "id": "Dashboard",
-          "name": "webapp.student.view.Dashboard"
+           "name": "webapp.student.view.Dashboard"
         },
-        "StudentsList": {
+          "StudentsList": {
           "type": "Component",
           "id": "StudentsList",
           "name": "sap.fe.templates.ListReport",
@@ -124,25 +129,30 @@
               "contextPath": "/Students"
             }
           }
+        },
+        "StudentsTotalCoursesPage": {
+          "type": "View",
+          "id": "StudentsTotalCoursesPage",
+          "name": "webapp.student.ext.view.TotalCourses"
         }
       }
-    },
-    "extends": {
-      "extensions": {
-        "sap.ui.controllerExtensions": {
-          "sap.fe.templates.ListReport": {
-            "controllerName": "webapp.student.ext.UploadExcel"
-          }
+    }
+  },
+  "extends": {
+    "extensions": {
+      "sap.ui.controllerExtensions": {
+        "sap.fe.templates.ListReport": {
+          "controllerName": "webapp.student.ext.UploadExcel"
         }
       }
-    },
-    "sap.ui.viewExtensions": {
-      "sap.fe.templates.ListReport.ListReport": {
-        "TableToolbarExtension": {
-          "className": "sap.ui.core.Fragment",
-          "fragmentName": "webapp.student.ext.fragment.Toolbar",
-          "type": "XML"
-        }
+    }
+  },
+  "sap.ui.viewExtensions": {
+    "sap.fe.templates.ListReport.ListReport": {
+      "TableToolbarExtension": {
+        "className": "sap.ui.core.Fragment",
+        "fragmentName": "webapp.student.ext.fragment.Toolbar",
+        "type": "XML"
       }
     }
   }
