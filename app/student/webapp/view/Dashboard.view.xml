@@ -10,7 +10,7 @@
                 <Title id="_IDGenTitle" text="Overview" class="sapUiSmallMarginBottom"/>
 
                 <!-- Horizontal container -->
-                <HBox id="_IDGenHBox" class="sapUiSmallMargin"   wrap="Wrap" justifyContent="Start" alignItems="Start"gap="1rem">
+                <HBox id="_IDGenHBox" class="sapUiSmallMargin"   wrap="Wrap" justifyContent="Start" alignItems="Start" gap="1rem">
                     <!-- Tile 1: Students -->
                     <GenericTile id="_IDGenGenericTile"
                         header="Total Students"
